@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Text.Json;
 
 namespace Botty.Telegram.Serialization
@@ -9,15 +10,24 @@ namespace Botty.Telegram.Serialization
     internal class SnakeCaseJsonNamingPolicy : JsonNamingPolicy
     {
         /// <inheritdoc />
-        public override string ConvertName(string name)
-        {
-            var convertedName = new StringBuilder();
-            convertedName.Append(char.ToLower(name[0]));
+        public override string ConvertName(string name) => ToSnakeCase(name);
 
-            for (var i = 1; i < name.Length; i++)
+        /// <summary>
+        /// Convert to snake case notation
+        /// </summary>
+        /// <param name="value">Value</param>
+        /// <returns></returns>
+        public static string ToSnakeCase(string value)
+        {
+            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(value));
+
+            var convertedName = new StringBuilder();
+            convertedName.Append(char.ToLower(value[0]));
+
+            for (var i = 1; i < value.Length; i++)
             {
-                if (char.IsUpper(name[i])) convertedName.Append($"_{char.ToLower(name[i])}");
-                else convertedName.Append(name[i]);
+                if (char.IsUpper(value[i])) convertedName.Append($"_{char.ToLower(value[i])}");
+                else convertedName.Append(value[i]);
             }
 
             return convertedName.ToString();

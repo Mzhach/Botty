@@ -1,5 +1,6 @@
 ﻿using Botty.Telegram.Abstractions;
 using Botty.Telegram.Abstractions.Exceptions;
+using Botty.Telegram.Abstractions.Requests;
 using Botty.Telegram.Abstractions.Types;
 using Botty.Telegram.Serialization;
 using System;
@@ -32,6 +33,13 @@ namespace Botty.Telegram
 
         /// <inheritdoc />
         public Task<User> GetMeAsync(CancellationToken cancellationToken = default) => SendRequestAsync<User>("getMe", cancellationToken);
+
+        /// <inheritdoc />
+        public Task<Update[]> GetUpdatesAsync(GetUpdatesRequest request, CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return SendRequestAsync<Update[]>("getUpdates", request, cancellationToken);
+        }
 
         private Task<TResponse> SendRequestAsync<TResponse>(string method, CancellationToken cancellationToken)
             where TResponse : class

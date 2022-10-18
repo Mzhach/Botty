@@ -12,7 +12,12 @@ namespace Botty.Telegram.Serialization
         /// </summary>
         public static readonly JsonSerializerOptions Telegram = new JsonSerializerOptions
         {
-            PropertyNamingPolicy = new SnakeCaseJsonNamingPolicy()
+            PropertyNamingPolicy = new SnakeCaseJsonNamingPolicy(),
+            Converters = 
+            { 
+                new SnakeCaseEnumFactoryConverter(),
+                new UnixDateTimeConverter()
+            }
         };
     }
 }
