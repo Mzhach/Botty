@@ -16,14 +16,20 @@
         public Message? Message { get; }
 
         /// <summary>
+        /// Optional. New incoming callback query
+        /// </summary>
+        public CallbackQuery? CallbackQuery { get; }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="updateId">Update`s unique identifier</param>
         /// <param name="message">Incoming message</param>
-        public Update(long updateId, Message? message = default)
+        public Update(long updateId, Message? message = default, CallbackQuery callbackQuery = default)
         {
             UpdateId = updateId;
             Message = message;
+            CallbackQuery = callbackQuery;
         }
     }
 }
