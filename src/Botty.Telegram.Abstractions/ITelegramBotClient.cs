@@ -24,5 +24,13 @@ namespace Botty.Telegram.Abstractions
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Update</returns>
         public Task<Update[]> GetUpdatesAsync(GetUpdatesRequest request, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Send text message
+        /// </summary>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Sent message</returns>
+        public Task<Message> SendMessageAsync(SendMessageRequest request, CancellationToken cancellationToken = default);
     }
 }

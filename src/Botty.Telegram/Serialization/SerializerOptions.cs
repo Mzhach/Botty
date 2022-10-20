@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Botty.Telegram.Serialization
 {
@@ -13,10 +14,13 @@ namespace Botty.Telegram.Serialization
         public static readonly JsonSerializerOptions Telegram = new JsonSerializerOptions
         {
             PropertyNamingPolicy = new SnakeCaseJsonNamingPolicy(),
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             Converters = 
-            { 
+            {
                 new SnakeCaseEnumFactoryConverter(),
-                new UnixDateTimeConverter()
+                new JsonStringEnumConverter(),
+                new UnixDateTimeConverter(),
+                new ReplyMarkupConverter()
             }
         };
     }

@@ -41,6 +41,13 @@ namespace Botty.Telegram
             return SendRequestAsync<Update[]>("getUpdates", request, cancellationToken);
         }
 
+        /// <inheritdoc />
+        public Task<Message> SendMessageAsync(SendMessageRequest request, CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return SendRequestAsync<Message>("sendMessage", request, cancellationToken);
+        }
+
         private Task<TResponse> SendRequestAsync<TResponse>(string method, CancellationToken cancellationToken)
             where TResponse : class
         {
@@ -66,14 +73,20 @@ namespace Botty.Telegram
             {
                 using var httpResponse = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
 
-                if (httpResponse.StatusCode != HttpStatusCode.OK) 
-                    throw new TelegramBotClientException($"An error has occured while sending the request. StatusCode: {httpResponse.StatusCode}");
+                if ((int)httpResponse.StatusCode >= 500)
+                {
+                    var errorContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new TelegramBotClientException($"An error has occured while sending the request. StatusCode: {httpResponse.StatusCode}, Content: {errorContent}");
+                }
 
                 var contentStream = await httpResponse.Content.ReadAsStreamAsync().ConfigureAwait(false);
                 var response = JsonSerializer.Deserialize<Response<TResponse>>(contentStream, SerializerOptions.Telegram);
 
-                if (response is null) throw new TelegramBotClientException("Serializer couldn't deserialize response's content to object");
-                if (!response.Ok) throw new TelegramBotClientException($"Telegram API returned an error. Description: {response.Description}, ErrorCode: {response.ErrorCode}");
+                if (response is null) 
+                    throw new TelegramBotClientException("Serializer couldn't deserialize response's content to object");
+
+                if (!response.Ok) 
+                    throw new TelegramBotClientException($"Telegram API returned an error. ErrorCode: {response.ErrorCode} Description: {response.Description}");
 
                 return response.Result!;
             }
