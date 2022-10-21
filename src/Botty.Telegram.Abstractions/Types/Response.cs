@@ -5,7 +5,6 @@
     /// </summary>
     /// <typeparam name="TResult">Request result</typeparam>
     public class Response<TResult>
-        where TResult : class
     {
         /// <summary>
         /// Is success
@@ -25,7 +24,7 @@
         /// <summary>
         /// Result
         /// </summary>
-        public TResult? Result { get; }
+        public TResult Result { get; }
 
         /// <summary>
         /// Constructor
@@ -34,7 +33,7 @@
         /// <param name="description">Error description</param>
         /// <param name="errorCode">Error code</param>
         /// <param name="result">Result</param>
-        public Response(bool ok, string? description = default, int? errorCode = default, TResult? result = default)
+        public Response(bool ok, string? description = default, int? errorCode = default, TResult result = default)
         {
             Ok = ok;
             Description = description;

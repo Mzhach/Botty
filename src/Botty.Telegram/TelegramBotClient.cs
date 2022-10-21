@@ -49,14 +49,12 @@ namespace Botty.Telegram
         }
 
         private Task<TResponse> SendRequestAsync<TResponse>(string method, CancellationToken cancellationToken)
-            where TResponse : class
         {
             var request = new HttpRequestMessage(HttpMethod.Post, BuildUri(method));
             return SendRequestAsync<TResponse>(request, cancellationToken);
         }
 
         private Task<TResponse> SendRequestAsync<TResponse>(string method, object content, CancellationToken cancellationToken)
-            where TResponse : class
         {
             var request = new HttpRequestMessage(HttpMethod.Post, BuildUri(method));
             var serializedContent = JsonSerializer.Serialize(content, SerializerOptions.Telegram);
@@ -64,10 +62,10 @@ namespace Botty.Telegram
 
             return SendRequestAsync<TResponse>(request, cancellationToken);
         }
+
         private Uri BuildUri(string method) => new Uri($"{_options.BaseUrl}/bot{_options.Token}/{method}");
 
         private async Task<TResponse> SendRequestAsync<TResponse>(HttpRequestMessage request, CancellationToken cancellationToken)
-            where TResponse : class
         {
             try
             {
