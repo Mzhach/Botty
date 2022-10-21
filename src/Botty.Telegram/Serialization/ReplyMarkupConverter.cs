@@ -1,4 +1,5 @@
 ﻿using Botty.Telegram.Abstractions.Types;
+using Botty.Telegram.Extensions;
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -118,7 +119,7 @@ namespace Botty.Telegram.Serialization
 
                         if (button.RequestPoll.Type.HasValue)
                         {
-                            var typeValue = SnakeCaseJsonNamingPolicy.ToSnakeCase(button.RequestPoll.Type.ToString());
+                            var typeValue = button.RequestPoll.Type.ToString().ToSnakeCase();
                             writer.WriteString("type", typeValue);
                         }
 

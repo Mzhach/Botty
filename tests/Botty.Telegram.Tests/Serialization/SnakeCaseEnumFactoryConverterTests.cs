@@ -1,4 +1,5 @@
 ﻿using Botty.Telegram.Abstractions.Enums;
+using Botty.Telegram.Extensions;
 using Botty.Telegram.Serialization;
 using FluentAssertions;
 using System;
@@ -69,7 +70,7 @@ namespace Botty.Telegram.Tests.Serialization
             // Arrange
             var testClassType = typeof(TestClass<>).MakeGenericType(enumType);
             var valueGetter = testClassType.GetProperty("Value")!.GetGetMethod();
-            var snakeCaseValue = SnakeCaseJsonNamingPolicy.ToSnakeCase(enumValue.ToString()!);
+            var snakeCaseValue = enumValue.ToString()!.ToSnakeCase();
             var serializedTestObject = $@"{{""Value"": ""{snakeCaseValue}""}}";
 
             // Act
@@ -87,7 +88,7 @@ namespace Botty.Telegram.Tests.Serialization
             // Arrange
             var testClassType = typeof(TestClass<>).MakeGenericType(enumType);
             var testObject = Activator.CreateInstance(testClassType);
-            var snakeCaseValue = SnakeCaseJsonNamingPolicy.ToSnakeCase(enumValue.ToString()!);
+            var snakeCaseValue = enumValue.ToString()!.ToSnakeCase();
 
             var valueSetter = testClassType.GetProperty("Value")!.GetSetMethod();
             valueSetter!.Invoke(testObject, new object[] { enumValue });
