@@ -26,6 +26,29 @@ namespace Botty.Telegram.Abstractions
         public Task<Update[]> GetUpdatesAsync(GetUpdatesRequest request, CancellationToken cancellationToken = default);
 
         /// <summary>
+        /// Set webhook integration
+        /// </summary>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>True on success</returns>
+        public Task<bool> SetWebhookAsync(SetWebhookRequest request, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Delete webhook integration
+        /// </summary>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>True on success</returns>
+        public Task<bool> DeleteWebhookAsync(DeleteWebhookRequest request, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get webhook info
+        /// </summary>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Current status of a webhook</returns>
+        public Task<WebhookInfo> GetWebhookInfoAsync(CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Send text message
         /// </summary>
         /// <param name="request">Request</param>
