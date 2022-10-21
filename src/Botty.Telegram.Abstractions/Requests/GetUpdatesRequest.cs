@@ -1,4 +1,6 @@
-﻿namespace Botty.Telegram.Abstractions.Requests
+﻿using Botty.Telegram.Abstractions.Enums;
+
+namespace Botty.Telegram.Abstractions.Requests
 {
     /// <summary>
     /// Request for getting incoming updates
@@ -24,6 +26,6 @@
         /// <summary>
         /// A list of the update types you want your bot to receive
         /// </summary>
-        public string[]? AllowedUpdates { get; set; }
+        public UpdateType[]? AllowedUpdates { get; set; }
     }
 }

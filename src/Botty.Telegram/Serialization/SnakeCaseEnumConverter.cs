@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Botty.Telegram.Extensions;
+using System;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -34,6 +35,6 @@ namespace Botty.Telegram.Serialization
 
         /// <inheritdoc />
         public override void Write(Utf8JsonWriter writer, TEnum value, JsonSerializerOptions options)
-            => writer.WriteStringValue(SnakeCaseJsonNamingPolicy.ToSnakeCase(value.ToString()));
+            => writer.WriteStringValue(value.ToString().ToSnakeCase());
     }
 }

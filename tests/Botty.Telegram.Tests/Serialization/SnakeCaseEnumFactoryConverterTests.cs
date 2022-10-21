@@ -1,4 +1,5 @@
 ﻿using Botty.Telegram.Abstractions.Enums;
+using Botty.Telegram.Extensions;
 using Botty.Telegram.Serialization;
 using FluentAssertions;
 using System;
@@ -44,7 +45,22 @@ namespace Botty.Telegram.Tests.Serialization
                 new object[] {typeof(MessageEntityType), MessageEntityType.Pre},
                 new object[] {typeof(MessageEntityType), MessageEntityType.TextLink},
                 new object[] {typeof(MessageEntityType), MessageEntityType.TextMention},
-                new object[] {typeof(MessageEntityType), MessageEntityType.CustomEmoji}
+                new object[] {typeof(MessageEntityType), MessageEntityType.CustomEmoji},
+                new object[] {typeof(UpdateType), UpdateType.Message},
+                new object[] {typeof(UpdateType), UpdateType.EditedMessage},
+                new object[] {typeof(UpdateType), UpdateType.ChannelPost},
+                new object[] {typeof(UpdateType), UpdateType.EditedChannelPost},
+                new object[] {typeof(UpdateType), UpdateType.InlineQuery},
+                new object[] {typeof(UpdateType), UpdateType.ChosenInlineResult},
+                new object[] {typeof(UpdateType), UpdateType.CallbackQuery},
+                new object[] {typeof(UpdateType), UpdateType.ShippingQuery},
+                new object[] {typeof(UpdateType), UpdateType.PreCheckoutQuery},
+                new object[] {typeof(UpdateType), UpdateType.Poll},
+                new object[] {typeof(UpdateType), UpdateType.PollAnswer},
+                new object[] {typeof(UpdateType), UpdateType.MyChatMember},
+                new object[] {typeof(UpdateType), UpdateType.ChatMember},
+                new object[] {typeof(UpdateType), UpdateType.ChatJoinRequest},
+
             };
 
         [Theory]
@@ -54,7 +70,7 @@ namespace Botty.Telegram.Tests.Serialization
             // Arrange
             var testClassType = typeof(TestClass<>).MakeGenericType(enumType);
             var valueGetter = testClassType.GetProperty("Value")!.GetGetMethod();
-            var snakeCaseValue = SnakeCaseJsonNamingPolicy.ToSnakeCase(enumValue.ToString()!);
+            var snakeCaseValue = enumValue.ToString()!.ToSnakeCase();
             var serializedTestObject = $@"{{""Value"": ""{snakeCaseValue}""}}";
 
             // Act
@@ -72,7 +88,7 @@ namespace Botty.Telegram.Tests.Serialization
             // Arrange
             var testClassType = typeof(TestClass<>).MakeGenericType(enumType);
             var testObject = Activator.CreateInstance(testClassType);
-            var snakeCaseValue = SnakeCaseJsonNamingPolicy.ToSnakeCase(enumValue.ToString()!);
+            var snakeCaseValue = enumValue.ToString()!.ToSnakeCase();
 
             var valueSetter = testClassType.GetProperty("Value")!.GetSetMethod();
             valueSetter!.Invoke(testObject, new object[] { enumValue });

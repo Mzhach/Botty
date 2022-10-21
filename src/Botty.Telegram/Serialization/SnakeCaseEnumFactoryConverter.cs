@@ -15,7 +15,8 @@ namespace Botty.Telegram.Serialization
         { 
             typeof(ChatType),
             typeof(MessageEntityType),
-            typeof(PollType)
+            typeof(PollType),
+            typeof(UpdateType)
         };
 
         /// <inheritdoc />

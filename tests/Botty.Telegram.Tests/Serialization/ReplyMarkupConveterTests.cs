@@ -25,18 +25,8 @@ namespace Botty.Telegram.Tests.Serialization
             {
                 new InlineKeyboardButton[]
                 {
-                    new InlineKeyboardButton(_fixture.Create<string>())
-                    {
-                        CallbackData = _fixture.Create<string>()
-                    },
-                    new InlineKeyboardButton(_fixture.Create<string>())
-                    {
-                        Url = _fixture.Create<string>()
-                    }
-                },
-                new InlineKeyboardButton[]
-                {
-                    new InlineKeyboardButton(_fixture.Create<string>())
+                    new InlineKeyboardButton(_fixture.Create<string>(), callbackData: _fixture.Create<string>()),
+                    new InlineKeyboardButton(_fixture.Create<string>(), url: _fixture.Create<string>())
                 },
                 new InlineKeyboardButton[0]
             };
@@ -53,11 +43,6 @@ namespace Botty.Telegram.Tests.Serialization
       {{
         ""text"": ""{keyboard[0][1].Text}"",
         ""url"": ""{keyboard[0][1].Url}""
-      }}
-    ],
-    [
-      {{
-        ""text"": ""{keyboard[1][0].Text}""
       }}
     ]
   ]
