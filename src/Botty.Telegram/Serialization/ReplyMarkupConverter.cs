@@ -9,7 +9,7 @@ namespace Botty.Telegram.Serialization
     /// <summary>
     /// Converter for reply markups
     /// </summary>
-    public class ReplyMarkupConverter : JsonConverter<IReplyMarkup>
+    internal class ReplyMarkupConverter : JsonConverter<IReplyMarkup>
     {
         /// <inheritdoc />
         public override IReplyMarkup? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
