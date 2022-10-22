@@ -11,16 +11,10 @@ namespace Botty.Telegram.Serialization
     /// </summary>
     internal class SnakeCaseEnumFactoryConverter : JsonConverterFactory
     {
-        private static readonly Type[] EnumTypes = new[] 
-        { 
-            typeof(ChatType),
-            typeof(MessageEntityType),
-            typeof(PollType),
-            typeof(UpdateType)
-        };
+        private static readonly Type[] ExceptionalEnumTypes = new[] { typeof(ParseModeType) };
 
         /// <inheritdoc />
-        public override bool CanConvert(Type typeToConvert) => EnumTypes.Contains(typeToConvert);
+        public override bool CanConvert(Type typeToConvert) => typeToConvert.IsEnum && !ExceptionalEnumTypes.Contains(typeToConvert);
 
         /// <inheritdoc />
         public override JsonConverter? CreateConverter(Type typeToConvert, JsonSerializerOptions options)

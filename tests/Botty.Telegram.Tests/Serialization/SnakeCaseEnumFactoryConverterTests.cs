@@ -60,7 +60,8 @@ namespace Botty.Telegram.Tests.Serialization
                 new object[] {typeof(UpdateType), UpdateType.MyChatMember},
                 new object[] {typeof(UpdateType), UpdateType.ChatMember},
                 new object[] {typeof(UpdateType), UpdateType.ChatJoinRequest},
-
+                new object[] {typeof(PollType), PollType.Quiz},
+                new object[] {typeof(PollType), PollType.Reqular}
             };
 
         [Theory]
