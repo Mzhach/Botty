@@ -6,7 +6,7 @@ namespace Botty.Telegram.Extensions
     /// <summary>
     /// Extensions for string
     /// </summary>
-    public static class StringExtensions
+    internal static class StringExtensions
     {
         /// <summary>
         /// Convert string to snake case notation

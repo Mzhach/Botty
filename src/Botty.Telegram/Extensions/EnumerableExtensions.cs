@@ -6,7 +6,7 @@ namespace Botty.Telegram.Extensions
     /// <summary>
     /// Extensions for IEnumerable
     /// </summary>
-    public static class EnumerableExtensions
+    internal static class EnumerableExtensions
     {
         /// <summary>
         /// Checks enumerable to be empty
