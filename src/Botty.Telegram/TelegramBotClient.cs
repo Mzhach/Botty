@@ -104,7 +104,7 @@ namespace Botty.Telegram
         private Task<TResponse> SendRequestAsync<TResponse>(string method, object content, CancellationToken cancellationToken)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, BuildUri(method));
-            var serializedContent = JsonSerializer.Serialize(content, SerializerOptions.Telegram);
+            var serializedContent = TelegramBotClientSerializer.Serialize(content);
             request.Content = new StringContent(serializedContent, Encoding.UTF8, "application/json");
 
             return SendRequestAsync<TResponse>(request, cancellationToken);
@@ -133,7 +133,7 @@ namespace Botty.Telegram
                 }
 
                 var contentStream = await httpResponse.Content.ReadAsStreamAsync().ConfigureAwait(false);
-                var response = JsonSerializer.Deserialize<Response<TResponse>>(contentStream, SerializerOptions.Telegram);
+                var response = TelegramBotClientSerializer.Deserialize<Response<TResponse>>(contentStream);
 
                 if (response is null) 
                     throw new TelegramBotClientException("Serializer couldn't deserialize response's content to object");
