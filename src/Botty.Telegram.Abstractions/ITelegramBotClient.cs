@@ -1,5 +1,6 @@
 ﻿using Botty.Telegram.Abstractions.Requests;
 using Botty.Telegram.Abstractions.Types;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,49 +12,32 @@ namespace Botty.Telegram.Abstractions
     public interface ITelegramBotClient
     {
         /// <summary>
-        /// Returns basic information about the bot
+        /// Sends request to Telegram Bot API without body
         /// </summary>
+        /// <typeparam name="TResponse">Type of request response</typeparam>
+        /// <param name="method">Telegram API method name</param>
         /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>Bot basic information</returns>
-        public Task<User> GetMeAsync(CancellationToken cancellationToken = default);
+        /// <returns>Telegram API request response</returns>
+        Task<TResponse> SendRequestAsync<TResponse>(string method, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Receive incoming updates
+        /// Sends request to Telegram Bot API with body in json
         /// </summary>
-        /// <param name="request">Request</param>
+        /// <typeparam name="TResponse">Type of request response</typeparam>
+        /// <param name="method">Telegram API method name</param>
+        /// <param name="content">Request object</param>
         /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>Update</returns>
-        public Task<Update[]> GetUpdatesAsync(GetUpdatesRequest request, CancellationToken cancellationToken = default);
+        /// <returns>Telegram API request response</returns>
+        Task<TResponse> SendRequestAsync<TResponse>(string method, object content, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Set webhook integration
+        /// Sends request to Telegram Bot API with body in form data
         /// </summary>
-        /// <param name="request">Request</param>
+        /// <typeparam name="TResponse">Type of request response</typeparam>
+        /// <param name="method">Telegram API method name</param>
+        /// <param name="formData">Multipart ford data content</param>
         /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>True on success</returns>
-        public Task<bool> SetWebhookAsync(SetWebhookRequest request, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Delete webhook integration
-        /// </summary>
-        /// <param name="request">Request</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>True on success</returns>
-        public Task<bool> DeleteWebhookAsync(DeleteWebhookRequest request, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Get webhook info
-        /// </summary>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>Current status of a webhook</returns>
-        public Task<WebhookInfo> GetWebhookInfoAsync(CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Send text message
-        /// </summary>
-        /// <param name="request">Request</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>Sent message</returns>
-        public Task<Message> SendMessageAsync(SendMessageRequest request, CancellationToken cancellationToken = default);
+        /// <returns>Telegram API request response</returns>
+        Task<TResponse> SendMultipartFormDataAsync<TResponse>(string method, MultipartFormDataContent formData, CancellationToken cancellationToken);
     }
 }
