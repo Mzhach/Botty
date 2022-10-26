@@ -3,7 +3,7 @@
     /// <summary>
     /// Mode for parsing entities in the message text
     /// </summary>
-    public enum ParseModeType
+    public enum ParseMode
     {
         MarkdownV2,
         HTML

@@ -11,7 +11,7 @@ namespace Botty.Telegram.Serialization
     /// </summary>
     internal class SnakeCaseEnumFactoryConverter : JsonConverterFactory
     {
-        private static readonly Type[] ExceptionalEnumTypes = new[] { typeof(ParseModeType) };
+        private static readonly Type[] ExceptionalEnumTypes = new[] { typeof(ParseMode) };
 
         /// <inheritdoc />
         public override bool CanConvert(Type typeToConvert) => typeToConvert.IsEnum && !ExceptionalEnumTypes.Contains(typeToConvert);
