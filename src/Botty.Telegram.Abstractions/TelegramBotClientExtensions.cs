@@ -1,9 +1,7 @@
 ﻿using Botty.Telegram.Abstractions;
 using Botty.Telegram.Abstractions.Requests;
 using Botty.Telegram.Abstractions.Types;
-using Botty.Telegram.Extensions;
 using System;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -54,37 +52,7 @@ namespace Botty.Telegram
             CancellationToken cancellationToken = default)
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
-
-            var formData = new MultipartFormDataContent();
-            formData.Add(new StringContent(request.Url), nameof(request.Url).ToSnakeCase());
-
-            if (request.Certificate != null)
-            {
-                formData.Add(
-                    new StreamContent(request.Certificate.FileContent),
-                    nameof(request.Certificate).ToSnakeCase(),
-                    request.Certificate.Filename);
-            }
-
-            if (!string.IsNullOrEmpty(request.IpAddress))
-                formData.Add(new StringContent(request.IpAddress), nameof(request.IpAddress).ToSnakeCase());
-
-            if (request.MaxConnections.HasValue)
-                formData.Add(new StringContent(request.MaxConnections.Value.ToString()), nameof(request.MaxConnections).ToSnakeCase());
-
-            if (request.AllowedUpdates.IsNotEmpty())
-            {
-                foreach (var update in request.AllowedUpdates!)
-                    formData.Add(new StringContent(update.ToString().ToSnakeCase()), nameof(request.AllowedUpdates).ToSnakeCase());
-            }
-
-            if (request.DropPendingUpdates.HasValue)
-                formData.Add(new StringContent(request.DropPendingUpdates.ToString()), nameof(request.DropPendingUpdates).ToSnakeCase());
-
-            if (!string.IsNullOrEmpty(request.SecretToken))
-                formData.Add(new StringContent(request.SecretToken), nameof(request.SecretToken).ToSnakeCase());
-
-            return telegramBotClient.SendMultipartFormDataAsync<bool>("setWebhook", formData, cancellationToken);
+            return telegramBotClient.SendMultipartFormDataAsync<bool>("setWebhook", request, cancellationToken);
         }
 
         /// <summary>

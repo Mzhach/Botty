@@ -1,6 +1,7 @@
 ﻿using Botty.Telegram.Abstractions;
 using Botty.Telegram.Abstractions.Exceptions;
 using Botty.Telegram.Abstractions.Types;
+using Botty.Telegram.Converters.MultipartFormData;
 using Botty.Telegram.Serialization;
 using System;
 using System.Net.Http;
@@ -47,10 +48,10 @@ namespace Botty.Telegram
         }
 
         /// <inheritdoc />
-        public virtual Task<TResponse> SendMultipartFormDataAsync<TResponse>(string method, MultipartFormDataContent formData, CancellationToken cancellationToken)
+        public virtual Task<TResponse> SendMultipartFormDataAsync<TResponse>(string method, object content, CancellationToken cancellationToken)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, BuildUri(method));
-            request.Content = formData;
+            request.Content = MultipartFormDataConverter.Convert(content);
 
             return SendRequestAsync<TResponse>(request, cancellationToken);
         }
