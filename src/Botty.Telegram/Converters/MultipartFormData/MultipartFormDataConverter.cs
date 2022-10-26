@@ -1,0 +1,72 @@
+﻿using Botty.Telegram.Abstractions.Exceptions;
+using Botty.Telegram.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Reflection;
+
+namespace Botty.Telegram.Converters.MultipartFormData
+{
+    /// <summary>
+    /// Converter from object to MultipleFormDataContent
+    /// </summary>
+    public static class MultipartFormDataConverter
+    {
+        /// <summary>
+        /// Form data converters
+        /// </summary>
+        public static IList<IFormDataBuilder> Builders { get; }
+
+        /// <summary>
+        /// Static constructor
+        /// </summary>
+        static MultipartFormDataConverter()
+        {
+            Builders = new List<IFormDataBuilder>
+            {
+                new PrimitiveTypesFormDataBuilder(),
+                new EnumFormDataBuilder(),
+                new StringFormDataBuilder(),
+                new InputFileFormDataBuilder(),
+                new ClassFormDataBuilder()
+            };
+        }
+
+        /// <summary>
+        /// Converts object to MultipartFormDataContent
+        /// </summary>
+        /// <param name="objectToConvert">Object to convert</param>
+        /// <returns>Converted MultipartFormDataContent</returns>
+        public static MultipartFormDataContent Convert(object objectToConvert)
+        {
+            if (objectToConvert is null) throw new ArgumentNullException(nameof(objectToConvert));
+
+            var type = objectToConvert.GetType();
+
+            var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty);
+
+            var formData = new MultipartFormDataContent();
+
+            foreach (var property in properties)
+            {
+                var value = property.GetValue(objectToConvert);
+
+                var propertyAppended = false;
+                foreach (var builder in Builders)
+                {
+                    if (builder.CanAppend(property.PropertyType))
+                    {
+                        builder.Append(formData, value, property.Name.ToSnakeCase(), property.PropertyType);
+                        propertyAppended = true;
+                        break;
+                    }
+                }
+
+                if(!propertyAppended)
+                    throw new TelegramBotClientException($"No builder was found for '{property.Name}' property");
+            }
+
+            return formData;
+        }
+    }
+}
