@@ -6,15 +6,15 @@ using System.Text;
 namespace Botty.Telegram.Converters.MultipartFormData
 {
     /// <summary>
-    /// Converter for classes
+    /// Appender for classes
     /// </summary>
-    internal class ClassFormDataBuilder : IFormDataBuilder
+    internal class ClassFormDataAppender : IFormDataAppender
     {
         /// <inheritdoc />
-        public bool CanAppend(Type typeToConvert) => typeToConvert.IsClass;
+        public bool CanAppend(Type typeToAppend) => typeToAppend.IsClass;
 
         /// <inheritdoc />
-        public void Append(MultipartFormDataContent formData, object value, string name, Type typeToConvert)
+        public void Append(MultipartFormDataContent formData, object value, string name, Type typeToAppend)
         {
             if (value is null) return;
 

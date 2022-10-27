@@ -8,26 +8,26 @@ using System.Text;
 namespace Botty.Telegram.Converters.MultipartFormData
 {
     /// <summary>
-    /// Conveter for enums
+    /// Appender for enums
     /// </summary>
-    internal class EnumFormDataBuilder : IFormDataBuilder
+    internal class EnumFormDataAppender : IFormDataAppender
     {
         private static readonly Type[] ExceptionalEnumTypes = new[] { typeof(ParseMode) };
 
         /// <inheritdoc />
-        public bool CanAppend(Type typeToConvert) 
-            => typeToConvert.IsEnum
-            || typeToConvert.IsGenericType
-            && typeToConvert.GetGenericTypeDefinition() == typeof(Nullable<>)
-            && Nullable.GetUnderlyingType(typeToConvert).IsEnum;
+        public bool CanAppend(Type typeToAppend) 
+            => typeToAppend.IsEnum
+            || typeToAppend.IsGenericType
+            && typeToAppend.GetGenericTypeDefinition() == typeof(Nullable<>)
+            && Nullable.GetUnderlyingType(typeToAppend).IsEnum;
 
         /// <inheritdoc />
-        public void Append(MultipartFormDataContent formData, object value, string name, Type typeToConvert)
+        public void Append(MultipartFormDataContent formData, object value, string name, Type typeToAppend)
         {
             if (value is null) return;
 
             StringContent content;
-            if (ExceptionalEnumTypes.Contains(GetTypeOrUnderlyingType(typeToConvert)))
+            if (ExceptionalEnumTypes.Contains(GetTypeOrUnderlyingType(typeToAppend)))
                 content = new StringContent(value.ToString(), Encoding.UTF8);
             else
                 content = new StringContent(value.ToString().ToSnakeCase(), Encoding.UTF8);

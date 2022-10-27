@@ -13,22 +13,22 @@ namespace Botty.Telegram.Converters.MultipartFormData
     public static class MultipartFormDataConverter
     {
         /// <summary>
-        /// Form data converters
+        /// Form data appenders
         /// </summary>
-        public static IList<IFormDataBuilder> Builders { get; }
+        public static IList<IFormDataAppender> Appenders { get; }
 
         /// <summary>
         /// Static constructor
         /// </summary>
         static MultipartFormDataConverter()
         {
-            Builders = new List<IFormDataBuilder>
+            Appenders = new List<IFormDataAppender>
             {
-                new PrimitiveTypesFormDataBuilder(),
-                new EnumFormDataBuilder(),
-                new StringFormDataBuilder(),
-                new InputFileFormDataBuilder(),
-                new ClassFormDataBuilder()
+                new PrimitiveTypesFormDataAppender(),
+                new EnumFormDataAppender(),
+                new StringFormDataAppender(),
+                new InputFileFormDataAppender(),
+                new ClassFormDataAppender()
             };
         }
 
@@ -52,7 +52,7 @@ namespace Botty.Telegram.Converters.MultipartFormData
                 var value = property.GetValue(objectToConvert);
 
                 var propertyAppended = false;
-                foreach (var builder in Builders)
+                foreach (var builder in Appenders)
                 {
                     if (builder.CanAppend(property.PropertyType))
                     {

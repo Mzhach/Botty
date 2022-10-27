@@ -6,9 +6,9 @@ using System.Text;
 namespace Botty.Telegram.Converters.MultipartFormData
 {
     /// <summary>
-    /// Converter for primitive types
+    /// Appender for primitive types
     /// </summary>
-    internal class PrimitiveTypesFormDataBuilder : IFormDataBuilder
+    internal class PrimitiveTypesFormDataAppender : IFormDataAppender
     {
         private static readonly Type[] SupportedTypes = new[]
         {
@@ -18,14 +18,14 @@ namespace Botty.Telegram.Converters.MultipartFormData
         };
 
         /// <inheritdoc />
-        public bool CanAppend(Type typeToConvert) 
-            => SupportedTypes.Contains(typeToConvert) 
-            || typeToConvert.IsGenericType
-            && typeToConvert.GetGenericTypeDefinition() == typeof(Nullable<>)
-            && SupportedTypes.Contains(Nullable.GetUnderlyingType(typeToConvert));
+        public bool CanAppend(Type typeToAppend) 
+            => SupportedTypes.Contains(typeToAppend) 
+            || typeToAppend.IsGenericType
+            && typeToAppend.GetGenericTypeDefinition() == typeof(Nullable<>)
+            && SupportedTypes.Contains(Nullable.GetUnderlyingType(typeToAppend));
 
         /// <inheritdoc />
-        public void Append(MultipartFormDataContent formData, object value, string name, Type typeToConvert)
+        public void Append(MultipartFormDataContent formData, object value, string name, Type typeToAppend)
         {
             if (value is null) return;
 
