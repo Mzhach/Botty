@@ -56,8 +56,20 @@ namespace Botty.Telegram
             return SendRequestAsync<TResponse>(request, cancellationToken);
         }
 
+        /// <summary>
+        /// Builds URL to Telegram Bot API method
+        /// </summary>
+        /// <param name="method">Telegram Bot API method</param>
+        /// <returns>Absolute URL</returns>
         protected virtual Uri BuildUri(string method) => new Uri($"{Options.BaseUrl}/bot{Options.Token}/{method}");
 
+        /// <summary>
+        /// Sends request to Telegram Bot API
+        /// </summary>
+        /// <typeparam name="TResponse">Type of response</typeparam>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Telegram Bot API request's result</returns>
         protected virtual async Task<TResponse> SendRequestAsync<TResponse>(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             try
