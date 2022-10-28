@@ -10,6 +10,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Botty.Telegram.Extensions.Microsoft.DependencyInjection", "src\Botty.Telegram.Extensions.Microsoft.DependencyInjection\Botty.Telegram.Extensions.Microsoft.DependencyInjection.csproj", "{CF1E28B0-EB6E-48A7-B114-A10F24F1CBB5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{69219FCF-ED59-4840-A7BD-4B404975F13C}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7536CF0C-7E2F-4245-9DDA-951E20E7EA52}"
 	ProjectSection(SolutionItems) = preProject
