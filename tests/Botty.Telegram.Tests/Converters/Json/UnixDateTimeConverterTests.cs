@@ -1,10 +1,10 @@
-﻿using Botty.Telegram.Serialization;
+﻿using Botty.Telegram.Converters.Json;
 using FluentAssertions;
 using System;
 using System.Text.Json;
 using Xunit;
 
-namespace Botty.Telegram.Tests.Serialization
+namespace Botty.Telegram.Tests.Converters.Json
 {
     public class UnixDateTimeConverterTests
     {

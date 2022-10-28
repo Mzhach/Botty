@@ -4,7 +4,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Botty.Telegram.Serialization
+namespace Botty.Telegram.Converters.Json
 {
     /// <summary>
     /// Converter for reply markups

@@ -1,4 +1,4 @@
-﻿using Botty.Telegram.Serialization;
+﻿using Botty.Telegram.Serializers.Json;
 using System;
 using System.Net.Http;
 using System.Text;
@@ -18,7 +18,7 @@ namespace Botty.Telegram.Converters.MultipartFormData
         {
             if (value is null) return;
 
-            formData.Add(new StringContent(TelegramBotClientSerializer.Serialize(value), Encoding.UTF8), name);
+            formData.Add(new StringContent(TelegramBotClientJsonSerializer.Serialize(value), Encoding.UTF8), name);
         }
     }
 }

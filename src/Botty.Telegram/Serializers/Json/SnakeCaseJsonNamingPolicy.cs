@@ -1,7 +1,7 @@
 ﻿using Botty.Telegram.Extensions;
 using System.Text.Json;
 
-namespace Botty.Telegram.Serialization
+namespace Botty.Telegram.Serializers.Json
 {
     /// <summary>
     /// Snake case naming policy

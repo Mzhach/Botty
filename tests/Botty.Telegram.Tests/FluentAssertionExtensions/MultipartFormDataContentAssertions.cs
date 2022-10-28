@@ -1,4 +1,4 @@
-﻿using Botty.Telegram.Serialization;
+﻿using Botty.Telegram.Serializers.Json;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
@@ -80,7 +80,7 @@ namespace Botty.Telegram.Tests.FluentAssertionExtensions
                 .FailWith("Expected to contain {0} content but it wasn't found", name);
 
             var contentAsString = await httpContent!.ReadAsStringAsync();
-            var expectedContent = TelegramBotClientSerializer.Serialize(expected);
+            var expectedContent = TelegramBotClientJsonSerializer.Serialize(expected);
 
             Execute.Assertion
                 .ForCondition(contentAsString == expectedContent)

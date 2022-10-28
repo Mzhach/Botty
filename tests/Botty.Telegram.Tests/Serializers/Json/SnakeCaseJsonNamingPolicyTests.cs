@@ -1,10 +1,10 @@
 ﻿using AutoFixture;
-using Botty.Telegram.Serialization;
+using Botty.Telegram.Serializers.Json;
 using FluentAssertions;
 using System.Text.Json;
 using Xunit;
 
-namespace Botty.Telegram.Tests.Serialization
+namespace Botty.Telegram.Tests.Serializers.Json
 {
     public class SnakeCaseJsonNamingPolicyTests
     {

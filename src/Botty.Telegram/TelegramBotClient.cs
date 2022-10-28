@@ -2,7 +2,7 @@
 using Botty.Telegram.Abstractions.Exceptions;
 using Botty.Telegram.Abstractions.Types;
 using Botty.Telegram.Converters.MultipartFormData;
-using Botty.Telegram.Serialization;
+using Botty.Telegram.Serializers.Json;
 using System;
 using System.Net.Http;
 using System.Text;
@@ -41,7 +41,7 @@ namespace Botty.Telegram
         public virtual Task<TResponse> SendRequestAsync<TResponse>(string method, object content, CancellationToken cancellationToken)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, BuildUri(method));
-            var serializedContent = TelegramBotClientSerializer.Serialize(content);
+            var serializedContent = TelegramBotClientJsonSerializer.Serialize(content);
             request.Content = new StringContent(serializedContent, Encoding.UTF8, "application/json");
 
             return SendRequestAsync<TResponse>(request, cancellationToken);
@@ -83,7 +83,7 @@ namespace Botty.Telegram
                 }
 
                 var contentStream = await httpResponse.Content.ReadAsStreamAsync().ConfigureAwait(false);
-                var response = TelegramBotClientSerializer.Deserialize<Response<TResponse>>(contentStream);
+                var response = TelegramBotClientJsonSerializer.Deserialize<Response<TResponse>>(contentStream);
 
                 if (response is null) 
                     throw new TelegramBotClientException("Serializer couldn't deserialize response's content to object");
