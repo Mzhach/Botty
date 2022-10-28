@@ -1,16 +1,14 @@
 ﻿using AutoFixture;
 using Botty.Telegram.Extensions;
 using Botty.Telegram.Converters.MultipartFormData;
-using Botty.Telegram.Serialization;
+using Botty.Telegram.Tests.FluentAssertionExtensions;
 using FluentAssertions;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 using Botty.Telegram.Abstractions.Enums;
 using Botty.Telegram.Abstractions.Types;
 using System;
 using System.IO;
-using System.Text;
 
 namespace Botty.Telegram.Tests.Converters.MultipartFormData
 {
@@ -49,18 +47,17 @@ namespace Botty.Telegram.Tests.Converters.MultipartFormData
             var formData = MultipartFormDataConverter.Convert(testObject);
 
             // Assert
-            formData.Should().NotBeNull();
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.BoolValue), testObject.BoolValue.ToString());
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.NullableBoolValue), testObject.NullableBoolValue.ToString());
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.IntValue), testObject.IntValue.ToString());
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.NullableIntValue), testObject.NullableIntValue.ToString());
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.LongValue), testObject.LongValue.ToString());
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.NullableLongValue), testObject.NullableLongValue.ToString());
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.StringValue), testObject.StringValue);
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.ParseMode), testObject.ParseMode.ToString());
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.NullableParseMode), testObject.NullableParseMode.ToString());
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.UpdateType), testObject.UpdateType.ToString().ToSnakeCase());
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.NullableUpdateType), testObject.NullableUpdateType.ToString()!.ToSnakeCase());
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.BoolValue).ToSnakeCase(), testObject.BoolValue.ToString());
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.NullableBoolValue).ToSnakeCase(), testObject.NullableBoolValue.ToString()!);
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.IntValue).ToSnakeCase(), testObject.IntValue.ToString());
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.NullableIntValue).ToSnakeCase(), testObject.NullableIntValue.ToString()!);
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.LongValue).ToSnakeCase(), testObject.LongValue.ToString());
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.NullableLongValue).ToSnakeCase(), testObject.NullableLongValue.ToString()!);
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.StringValue).ToSnakeCase(), testObject.StringValue!);
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.ParseMode).ToSnakeCase(), testObject.ParseMode.ToString());
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.NullableParseMode).ToSnakeCase(), testObject.NullableParseMode.ToString()!);
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.UpdateType).ToSnakeCase(), testObject.UpdateType.ToString().ToSnakeCase());
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.NullableUpdateType).ToSnakeCase(), testObject.NullableUpdateType.ToString()!.ToSnakeCase());
         }
 
         [Fact]
@@ -82,18 +79,19 @@ namespace Botty.Telegram.Tests.Converters.MultipartFormData
             var formData = MultipartFormDataConverter.Convert(testObject);
 
             // Assert
-            formData.Should().NotBeNull();
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.BoolValue), testObject.BoolValue.ToString());
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.NullableBoolValue), null);
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.IntValue), testObject.IntValue.ToString());
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.NullableIntValue), null);
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.LongValue), testObject.LongValue.ToString());
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.NullableLongValue), null);
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.StringValue), testObject.StringValue);
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.ParseMode), testObject.ParseMode.ToString());
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.NullableParseMode), null);
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.UpdateType), testObject.UpdateType.ToString().ToSnakeCase());
-            await CheckPrimitiveType(formData, nameof(TestClassWithPrimitiveTypes.NullableUpdateType), null);
+
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.BoolValue).ToSnakeCase(), testObject.BoolValue.ToString());
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.IntValue).ToSnakeCase(), testObject.IntValue.ToString());
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.LongValue).ToSnakeCase(), testObject.LongValue.ToString());
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.StringValue).ToSnakeCase(), testObject.StringValue!);
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.ParseMode).ToSnakeCase(), testObject.ParseMode.ToString());
+            await formData.Should().ContainAsync(nameof(TestClassWithPrimitiveTypes.UpdateType).ToSnakeCase(), testObject.UpdateType.ToString().ToSnakeCase());
+
+            formData.Should().NotContain(nameof(TestClassWithPrimitiveTypes.NullableBoolValue).ToSnakeCase());
+            formData.Should().NotContain(nameof(TestClassWithPrimitiveTypes.NullableIntValue).ToSnakeCase());
+            formData.Should().NotContain(nameof(TestClassWithPrimitiveTypes.NullableLongValue).ToSnakeCase());
+            formData.Should().NotContain(nameof(TestClassWithPrimitiveTypes.NullableParseMode).ToSnakeCase());
+            formData.Should().NotContain(nameof(TestClassWithPrimitiveTypes.NullableUpdateType).ToSnakeCase());
         }
 
         public class TestClassNestedNestedObject
@@ -126,9 +124,8 @@ namespace Botty.Telegram.Tests.Converters.MultipartFormData
             var formData = MultipartFormDataConverter.Convert(testObject);
 
             // Assert
-            formData.Should().NotBeNull();
-            await CheckNestedObject(formData, nameof(TestClassWithNestedObjects.NestedObject), testObject.NestedObject);
-            await CheckNestedObject(formData, nameof(TestClassWithNestedObjects.NestedObjects), testObject.NestedObjects);
+            await formData.Should().ContainAsync(nameof(TestClassWithNestedObjects.NestedObject).ToSnakeCase(), testObject.NestedObject);
+            await formData.Should().ContainAsync(nameof(TestClassWithNestedObjects.NestedObjects).ToSnakeCase(), testObject.NestedObjects);
         }
 
         [Fact]
@@ -144,9 +141,8 @@ namespace Botty.Telegram.Tests.Converters.MultipartFormData
             var formData = MultipartFormDataConverter.Convert(testObject);
 
             // Assert
-            formData.Should().NotBeNull();
-            await CheckNestedObject(formData, nameof(TestClassWithNestedObjects.NestedObject), testObject.NestedObject);
-            await CheckNestedObject(formData, nameof(TestClassWithNestedObjects.NestedObjects), testObject.NestedObjects);
+            formData.Should().NotContain(nameof(TestClassWithNestedObjects.NestedObject).ToSnakeCase());
+            await formData.Should().ContainAsync(nameof(TestClassWithNestedObjects.NestedObjects).ToSnakeCase(), testObject.NestedObjects);
         }
 
         public class TestClassWithInputFile
@@ -165,8 +161,7 @@ namespace Botty.Telegram.Tests.Converters.MultipartFormData
             var formData = MultipartFormDataConverter.Convert(testObject);
 
             // Assert
-            formData.Should().NotBeNull();
-            await CheckPrimitiveType(formData, nameof(TestClassWithInputFile.InputFile), testObject.InputFile.FileId);
+            await formData.Should().ContainAsync(nameof(TestClassWithInputFile.InputFile).ToSnakeCase(), testObject.InputFile.FileId!);
         }
 
         [Fact]
@@ -180,35 +175,28 @@ namespace Botty.Telegram.Tests.Converters.MultipartFormData
             var formData = MultipartFormDataConverter.Convert(testObject);
 
             // Assert
-            formData.Should().NotBeNull();
-            await CheckPrimitiveType(formData, nameof(TestClassWithInputFile.InputFile), testObject.InputFile.Url!.ToString());
+            await formData.Should().ContainAsync(nameof(TestClassWithInputFile.InputFile).ToSnakeCase(), testObject.InputFile.Url!.ToString());
         }
 
         [Fact]
         public async Task Converter_ShouldConvertInputFileAsStream()
         {
             // Arrange
-            var bytes = _fixture.Create<byte[]>();
-            var expectedContent = Encoding.UTF8.GetString(bytes);
-
-            var inputFile = new InputFile(_fixture.Create<string>(), new MemoryStream(bytes));
+            var inputFile = new InputFile(_fixture.Create<string>(), new MemoryStream(new byte[] { 1, 2, 3 }));
             var testObject = new TestClassWithInputFile { InputFile = inputFile };
 
             // Act
             var formData = MultipartFormDataConverter.Convert(testObject);
 
             // Assert
-            formData.Should().NotBeNull();
-
-            var httpContent = GetHttpContent(formData, nameof(TestClassWithInputFile.InputFile).ToSnakeCase());
-            httpContent.Headers.ContentDisposition!.FileName.Should().Be(inputFile.Filename);
-
-            var content = await httpContent.ReadAsStringAsync();
-            content.Should().Be(expectedContent);
+            await formData.Should().ContainFileAsync(
+                nameof(TestClassWithInputFile.InputFile).ToSnakeCase(),
+                inputFile.Filename!,
+                inputFile.FileContent!);
         }
 
         [Fact]
-        public async Task Converter_ShouldNotConvertNullInputFile()
+        public void Converter_ShouldNotConvertNullInputFile()
         {
             // Arrange
             var testObject = new TestClassWithInputFile();
@@ -217,52 +205,7 @@ namespace Botty.Telegram.Tests.Converters.MultipartFormData
             var formData = MultipartFormDataConverter.Convert(testObject);
 
             // Assert
-            formData.Should().NotBeNull();
-            await CheckPrimitiveType(formData, nameof(TestClassWithInputFile.InputFile), null);
+            formData.Should().NotContain(nameof(TestClassWithInputFile.InputFile).ToSnakeCase());
         }
-
-        private async Task CheckNestedObject<T>(MultipartFormDataContent formData, string name, T? expected)
-            where T : class
-        {
-            if (expected is null)
-            {
-                CheckEmptyHttpContent(formData, name.ToSnakeCase());
-                return;
-            }
-
-            var httpContent = GetHttpContent(formData, name.ToSnakeCase());
-            var content = await httpContent.ReadAsStringAsync();
-            var exptected = TelegramBotClientSerializer.Serialize(expected);
-
-            content.Should().Be(exptected);
-        }
-
-        private async Task CheckPrimitiveType(
-            MultipartFormDataContent formData,
-            string name,
-            string? expected = default)
-        {
-            if (expected is null)
-            {
-                CheckEmptyHttpContent(formData, name.ToSnakeCase());
-                return;
-            }
-
-            var httpContent = GetHttpContent(formData, name.ToSnakeCase());
-            var content = await httpContent.ReadAsStringAsync();
-
-            content.Should().Be(expected);
-        }
-
-        private void CheckEmptyHttpContent(MultipartFormDataContent formData, string name)
-            => formData.Should()
-                    .NotContain(x => x.Headers.ContentDisposition != null
-                                     && x.Headers.ContentDisposition.Name == name);
-
-        private HttpContent GetHttpContent(MultipartFormDataContent formData, string name)
-            => formData.Should()
-                .ContainSingle(x => x.Headers.ContentDisposition != null
-                                    && x.Headers.ContentDisposition.Name == name)
-                .Which;
     }
 }
