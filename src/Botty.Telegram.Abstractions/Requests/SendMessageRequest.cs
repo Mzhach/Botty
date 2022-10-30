@@ -14,7 +14,7 @@ namespace Botty.Telegram.Abstractions.Requests
         public string ChatId { get; }
 
         /// <summary>
-        /// Text of the message to be sent
+        /// Text of the message to be sent, 1-4096 characters after entities parsing
         /// </summary>
         public string Text { get; }
 
