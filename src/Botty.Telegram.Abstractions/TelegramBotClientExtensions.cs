@@ -97,5 +97,30 @@ namespace Botty.Telegram
             if (request is null) throw new ArgumentNullException(nameof(request));
             return telegramBotClient.SendRequestAsync<Message>("sendMessage", request, cancellationToken);
         }
+
+        /// <summary>
+        /// Deletes a message, including service messages, with the following limitations:
+        /// <list type="bullet"> 
+        ///     <item> A message can only be deleted if it was sent less than 48 hours ago. </item>
+        ///     <item> A dice message in a private chat can only be deleted if it was sent more than 24 hours ago. </item>
+        ///     <item> Bots can delete outgoing messages in private chats, groups, and supergroups. </item>
+        ///     <item> Bots can delete incoming messages in private chats. </item>
+        ///     <item> Bots granted can_post_messages permissions can delete outgoing messages in channels. </item>
+        ///     <item> If the bot is an administrator of a group, it can delete any message there. </item>
+        ///     <item> If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there. </item>
+        /// </list>
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>True if success</returns>
+        public static Task<bool> DeleteMessageAsync(
+            this ITelegramBotClient telegramBotClient,
+            DeleteMessageRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return telegramBotClient.SendRequestAsync<bool>("deleteMessage", request, cancellationToken);
+        }
     }
 }
