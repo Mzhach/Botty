@@ -138,5 +138,21 @@ namespace Botty.Telegram
             if (request is null) throw new ArgumentNullException(nameof(request));
             return telegramBotClient.SendRequestAsync<Message>("editMessageText", request, cancellationToken);
         }
+
+        /// <summary>
+        /// Edits message reply markup
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Edited message</returns>
+        public static Task<Message> EditMessageReplyMarkupAsync(
+            this ITelegramBotClient telegramBotClient,
+            EditMessageReplyMarkupRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return telegramBotClient.SendRequestAsync<Message>("editMessageReplyMarkup", request, cancellationToken);
+        }
     }
 }
