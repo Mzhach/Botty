@@ -19,6 +19,6 @@ namespace Botty.Telegram.Converters.Json
 
         /// <inheritdoc />
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
-            => throw new NotImplementedException();
+            => writer.WriteNumberValue(((DateTimeOffset)value).ToUnixTimeSeconds());
     }
 }

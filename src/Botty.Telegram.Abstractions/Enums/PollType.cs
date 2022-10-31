@@ -6,6 +6,6 @@
     public enum PollType
     {
         Quiz,
-        Reqular
+        Regular
     }
 }

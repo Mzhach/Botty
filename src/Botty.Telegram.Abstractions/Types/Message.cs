@@ -89,6 +89,11 @@ namespace Botty.Telegram.Abstractions.Types
         public MessageEntity[]? Entities { get; }
 
         /// <summary>
+        /// Optional. Message is a native poll, information about the poll
+        /// </summary>
+        public Poll? Poll { get; }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="messageId">Message identifier</param>
@@ -107,6 +112,7 @@ namespace Botty.Telegram.Abstractions.Types
         /// <param name="viaBot">Via bot</param>
         /// <param name="editDate">Edit date</param>
         /// <param name="entities">Entities</param>
+        /// <param name="poll">Poll</param>
         public Message(
             long messageId,
             DateTime date,
@@ -123,7 +129,8 @@ namespace Botty.Telegram.Abstractions.Types
             Message? replyToMessage = default,
             User? viaBot = default,
             DateTime? editDate = default,
-            MessageEntity[]? entities = default)
+            MessageEntity[]? entities = default,
+            Poll? poll = default)
         {
             MessageId = messageId;
             Date = date;
@@ -141,6 +148,7 @@ namespace Botty.Telegram.Abstractions.Types
             ViaBot = viaBot;
             EditDate = editDate;
             Entities = entities;
+            Poll = poll;
         }
     }
 }

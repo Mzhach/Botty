@@ -170,5 +170,21 @@ namespace Botty.Telegram
             if (request is null) throw new ArgumentNullException(nameof(request));
             return telegramBotClient.SendRequestAsync<Message>("forwardMessage", request, cancellationToken);
         }
+
+        /// <summary>
+        /// Sends pool
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Sent poll message</returns>
+        public static Task<Message> SendPollAsync(
+            this ITelegramBotClient telegramBotClient,
+            SendPollRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return telegramBotClient.SendRequestAsync<Message>("sendPoll", request, cancellationToken);
+        }
     }
 }
