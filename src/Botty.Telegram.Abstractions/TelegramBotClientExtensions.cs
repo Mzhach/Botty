@@ -154,5 +154,21 @@ namespace Botty.Telegram
             if (request is null) throw new ArgumentNullException(nameof(request));
             return telegramBotClient.SendRequestAsync<Message>("editMessageReplyMarkup", request, cancellationToken);
         }
+
+        /// <summary>
+        /// Forwards message of any kind. Service messages can't be forwarded
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Forwarded message</returns>
+        public static Task<Message> ForwardMessageAsync(
+            this ITelegramBotClient telegramBotClient,
+            ForwardMessageRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return telegramBotClient.SendRequestAsync<Message>("forwardMessage", request, cancellationToken);
+        }
     }
 }

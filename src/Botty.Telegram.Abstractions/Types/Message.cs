@@ -34,6 +34,36 @@ namespace Botty.Telegram.Abstractions.Types
         public Chat Chat { get; }
 
         /// <summary>
+        /// Optional. For forwarded messages, sender of the original message
+        /// </summary>
+        public User? ForwardFrom { get; }
+
+        /// <summary>
+        /// Optional. For messages forwarded from channels, identifier of the original message in the channel
+        /// </summary>
+        public long? ForwardFromMessageId { get; }
+
+        /// <summary>
+        /// Optional. For forwarded messages that were originally sent in channels or by an anonymous chat administrator, signature of the message sender if present
+        /// </summary>
+        public string? ForwardSignature { get; }
+
+        /// <summary>
+        /// Optional. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages
+        /// </summary>
+        public string? ForwardSenderName { get; }
+
+        /// <summary>
+        /// Optional. For forwarded messages, date the original message was sent
+        /// </summary>
+        public DateTime? ForwardDate { get; }
+
+        /// <summary>
+        /// Optional. True, if the message is a channel post that was automatically forwarded to the connected discussion group
+        /// </summary>
+        public bool? IsAutomaticForward { get; }
+
+        /// <summary>
         /// Optional. For replies, the original message
         /// </summary>
         public Message? ReplyToMessage { get; }
@@ -64,6 +94,12 @@ namespace Botty.Telegram.Abstractions.Types
         /// <param name="messageId">Message identifier</param>
         /// <param name="date">Message date</param>
         /// <param name="chat">Chat</param>
+        /// <param name="forwardFrom">Forward from</param>
+        /// <param name="forwardFromMessageId">Forward from message identifier</param>
+        /// <param name="forwardSignature">Forward signature</param>
+        /// <param name="forwardSenderName">Forward sender name</param>
+        /// <param name="forwardDate">Forward date</param>
+        /// <param name="isAutomaticForward">Is automatic forward</param>
         /// <param name="text">Text</param>
         /// <param name="user">User</param>
         /// <param name="senderChat">Sender chat</param>
@@ -75,6 +111,12 @@ namespace Botty.Telegram.Abstractions.Types
             long messageId,
             DateTime date,
             Chat chat,
+            User? forwardFrom,
+            long? forwardFromMessageId,
+            string? forwardSignature,
+            string? forwardSenderName,
+            DateTime? forwardDate,
+            bool? isAutomaticForward,
             string? text,
             User? user = default,
             Chat? senderChat = default,
@@ -86,6 +128,12 @@ namespace Botty.Telegram.Abstractions.Types
             MessageId = messageId;
             Date = date;
             Chat = chat;
+            ForwardFrom = forwardFrom;
+            ForwardFromMessageId = forwardFromMessageId;
+            ForwardSignature = forwardSignature;
+            ForwardSenderName = forwardSenderName;
+            ForwardDate = forwardDate;
+            IsAutomaticForward = isAutomaticForward;
             Text = text;
             User = user;
             SenderChat = senderChat;
