@@ -61,7 +61,7 @@ namespace Botty.Telegram.Tests.Converters.Json
                 new object[] {typeof(UpdateType), UpdateType.ChatMember},
                 new object[] {typeof(UpdateType), UpdateType.ChatJoinRequest},
                 new object[] {typeof(PollType), PollType.Quiz},
-                new object[] {typeof(PollType), PollType.Reqular}
+                new object[] {typeof(PollType), PollType.Regular}
             };
 
         [Theory]
