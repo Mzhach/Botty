@@ -61,7 +61,18 @@ namespace Botty.Telegram.Tests.Converters.Json
                 new object[] {typeof(UpdateType), UpdateType.ChatMember},
                 new object[] {typeof(UpdateType), UpdateType.ChatJoinRequest},
                 new object[] {typeof(PollType), PollType.Quiz},
-                new object[] {typeof(PollType), PollType.Regular}
+                new object[] {typeof(PollType), PollType.Regular},
+                new object[] {typeof(ActionType), ActionType.Typing},
+                new object[] {typeof(ActionType), ActionType.UploadPhoto},
+                new object[] {typeof(ActionType), ActionType.RecordVideo},
+                new object[] {typeof(ActionType), ActionType.UploadVideo},
+                new object[] {typeof(ActionType), ActionType.RecordVoice},
+                new object[] {typeof(ActionType), ActionType.UploadVoice},
+                new object[] {typeof(ActionType), ActionType.UploadDocument},
+                new object[] {typeof(ActionType), ActionType.ChooseSticker},
+                new object[] {typeof(ActionType), ActionType.FindLocation},
+                new object[] {typeof(ActionType), ActionType.RecordVideoNote},
+                new object[] {typeof(ActionType), ActionType.UploadVideoNote}
             };
 
         [Theory]

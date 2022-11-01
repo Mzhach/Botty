@@ -202,5 +202,21 @@ namespace Botty.Telegram
             if (request is null) throw new ArgumentNullException(nameof(request));
             return telegramBotClient.SendRequestAsync<Message>("sendDice", request, cancellationToken);
         }
+
+        /// <summary>
+        /// Sends chat action
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Sent dice message</returns>
+        public static Task<bool> SendChatActionAsync(
+            this ITelegramBotClient telegramBotClient,
+            SendChatActionRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return telegramBotClient.SendRequestAsync<bool>("sendChatAction", request, cancellationToken);
+        }
     }
 }
