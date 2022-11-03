@@ -207,5 +207,132 @@ namespace Botty.Telegram.Tests.Converters.MultipartFormData
             // Assert
             formData.Should().NotContain(nameof(TestClassWithInputFile.InputFile).ToSnakeCase());
         }
+
+        public class TestClassWithReplyMarkup
+        {
+            public IReplyMarkup? ReplyMarkup { get; set; }
+        }
+
+        [Fact]
+        public async Task Converter_ShouldConvertInlineKeyboardMarkup()
+        {
+            // Arrange
+            var inlineKeyboard = new InlineKeyboardButton[][]
+            {
+                new InlineKeyboardButton[]
+                {
+                    new InlineKeyboardButton(_fixture.Create<string>(), url: _fixture.Create<string>()),
+                    new InlineKeyboardButton(_fixture.Create<string>(), callbackData: _fixture.Create<string>())
+                }
+            };
+
+            var inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboard);
+            var testObject = new TestClassWithReplyMarkup { ReplyMarkup = inlineKeyboardMarkup };
+
+            // Act
+            var formData = MultipartFormDataConverter.Convert(testObject);
+
+            // Assert
+            await formData.Should().ContainAsync(nameof(TestClassWithReplyMarkup.ReplyMarkup).ToSnakeCase(), inlineKeyboardMarkup);
+        }
+
+        [Fact]
+        public async Task Converter_ShouldConvertReplyKeyboardMarkup()
+        {
+            // Arrange
+            var keyboard = new KeyboardButton[][]
+            {
+                new KeyboardButton[]
+                {
+                    new KeyboardButton(_fixture.Create<string>())
+                    {
+                        RequestContact = true
+                    }
+                },
+                new KeyboardButton[]
+                {
+                    new KeyboardButton(_fixture.Create<string>())
+                    {
+                        RequestLocation = true
+                    }
+                },
+                new KeyboardButton[]
+                {
+                    new KeyboardButton(_fixture.Create<string>())
+                    {
+                        RequestPoll = new KeyboardButtonPollType()
+                    }
+                },
+                new KeyboardButton[]
+                {
+                    new KeyboardButton(_fixture.Create<string>())
+                    {
+                        RequestPoll = new KeyboardButtonPollType { Type = PollType.Regular }
+                    }
+                }
+            };
+
+            var replyKeyboardMarkup = new ReplyKeyboardMarkup(keyboard)
+            {
+                ResizeKeyboard = true,
+                OneTimeKeyboard = true,
+                InputFieldPlaceholder = _fixture.Create<string>(),
+                Selective = true
+            };
+
+            var testObject = new TestClassWithReplyMarkup { ReplyMarkup = replyKeyboardMarkup };
+
+            // Act
+            var formData = MultipartFormDataConverter.Convert(testObject);
+
+            // Assert
+            await formData.Should().ContainAsync(nameof(TestClassWithReplyMarkup.ReplyMarkup).ToSnakeCase(), replyKeyboardMarkup);
+        }
+
+        [Fact]
+        public async Task Converter_ShouldConvertForceReply()
+        {
+            // Arrange
+            var forceReply = new ForceReply
+            {
+                InputFieldPlaceholder = _fixture.Create<string>(),
+                Selective = true
+            };
+
+            var testObject = new TestClassWithReplyMarkup { ReplyMarkup = forceReply };
+
+            // Act
+            var formData = MultipartFormDataConverter.Convert(testObject);
+
+            // Assert
+            await formData.Should().ContainAsync(nameof(TestClassWithReplyMarkup.ReplyMarkup).ToSnakeCase(), forceReply);
+        }
+
+        [Fact]
+        public async Task Converter_ShouldConvertReplyKeyboardRemove()
+        {
+            // Arrange
+            var replyKeyboardRemove = new ReplyKeyboardRemove { Selective = true };
+            var testObject = new TestClassWithReplyMarkup { ReplyMarkup = replyKeyboardRemove };
+
+            // Act
+            var formData = MultipartFormDataConverter.Convert(testObject);
+
+            // Assert
+            await formData.Should().ContainAsync(nameof(TestClassWithReplyMarkup.ReplyMarkup).ToSnakeCase(), replyKeyboardRemove);
+        }
+
+        [Fact]
+        public void Converter_ShouldNotConvertNullReplyMarkup()
+        {
+            // Arrange
+            var testObject = new TestClassWithReplyMarkup { ReplyMarkup = null };
+
+            // Act
+            var formData = MultipartFormDataConverter.Convert(testObject);
+
+            // Assert
+            formData.Should().NotContain(nameof(TestClassWithReplyMarkup.ReplyMarkup).ToSnakeCase());
+        }
     }
 }

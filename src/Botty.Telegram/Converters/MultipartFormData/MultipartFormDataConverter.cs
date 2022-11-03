@@ -28,6 +28,7 @@ namespace Botty.Telegram.Converters.MultipartFormData
                 new EnumFormDataAppender(),
                 new StringFormDataAppender(),
                 new InputFileFormDataAppender(),
+                new ReplyMarkupFormDataAppender(),
                 new ClassFormDataAppender()
             };
         }
@@ -63,7 +64,7 @@ namespace Botty.Telegram.Converters.MultipartFormData
                 }
 
                 if(!propertyAppended)
-                    throw new TelegramBotClientException($"No builder was found for '{property.Name}' property");
+                    throw new TelegramBotClientException($"No appender was found for '{property.Name}' property");
             }
 
             return formData;
