@@ -241,7 +241,7 @@ namespace Botty.Telegram
         /// <param name="telegramBotClient">Telegram Bot API client</param>
         /// <param name="request">Request</param>
         /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>Sent dice message</returns>
+        /// <returns>Sent photo message</returns>
         public static Task<Message> SendPhotoAsync(
             this ITelegramBotClient telegramBotClient,
             SendPhotoRequest request,
