@@ -236,6 +236,22 @@ namespace Botty.Telegram
         }
 
         /// <summary>
+        /// Sends audio
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Sent audio message</returns>
+        public static Task<Message> SendAudioAsync(
+            this ITelegramBotClient telegramBotClient,
+            SendAudioRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return telegramBotClient.SendMultipartFormDataAsync<Message>("sendAudio", request, cancellationToken);
+        }
+
+        /// <summary>
         /// Sends document
         /// </summary>
         /// <param name="telegramBotClient">Telegram Bot API client</param>

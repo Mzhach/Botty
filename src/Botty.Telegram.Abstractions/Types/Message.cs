@@ -89,6 +89,11 @@ namespace Botty.Telegram.Abstractions.Types
         public MessageEntity[]? Entities { get; }
 
         /// <summary>
+        /// Optional. Message is an audio file, information about the file
+        /// </summary>
+        public Audio? Audio { get; }
+
+        /// <summary>
         /// Optional. Message is a general file, information about the file
         /// </summary>
         public Document? Document { get; }
@@ -127,6 +132,7 @@ namespace Botty.Telegram.Abstractions.Types
         /// <param name="viaBot">Via bot</param>
         /// <param name="editDate">Edit date</param>
         /// <param name="entities">Entities</param>
+        /// <param name="audio">Audio</param>
         /// <param name="document">Document</param>
         /// <param name="photo">Photo sizes</param>
         /// <param name="dice">Dice</param>
@@ -148,6 +154,7 @@ namespace Botty.Telegram.Abstractions.Types
             User? viaBot = default,
             DateTime? editDate = default,
             MessageEntity[]? entities = default,
+            Audio? audio = default,
             Document? document = default,
             PhotoSize[]? photo = default,
             Dice? dice = default,
@@ -169,6 +176,7 @@ namespace Botty.Telegram.Abstractions.Types
             ViaBot = viaBot;
             EditDate = editDate;
             Entities = entities;
+            Audio = audio;
             Document = document;
             Photo = photo;
             Dice = dice;
