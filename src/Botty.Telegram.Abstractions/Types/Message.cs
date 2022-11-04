@@ -89,6 +89,11 @@ namespace Botty.Telegram.Abstractions.Types
         public MessageEntity[]? Entities { get; }
 
         /// <summary>
+        /// Optional. Message is a general file, information about the file
+        /// </summary>
+        public Document? Document { get; }
+
+        /// <summary>
         /// Optional. Message is a photo, available sizes of the photo
         /// </summary>
         public PhotoSize[]? Photo { get; }
@@ -122,6 +127,7 @@ namespace Botty.Telegram.Abstractions.Types
         /// <param name="viaBot">Via bot</param>
         /// <param name="editDate">Edit date</param>
         /// <param name="entities">Entities</param>
+        /// <param name="document">Document</param>
         /// <param name="photo">Photo sizes</param>
         /// <param name="dice">Dice</param>
         /// <param name="poll">Poll</param>
@@ -142,6 +148,7 @@ namespace Botty.Telegram.Abstractions.Types
             User? viaBot = default,
             DateTime? editDate = default,
             MessageEntity[]? entities = default,
+            Document? document = default,
             PhotoSize[]? photo = default,
             Dice? dice = default,
             Poll? poll = default)
@@ -162,6 +169,7 @@ namespace Botty.Telegram.Abstractions.Types
             ViaBot = viaBot;
             EditDate = editDate;
             Entities = entities;
+            Document = document;
             Photo = photo;
             Dice = dice;
             Poll = poll;
