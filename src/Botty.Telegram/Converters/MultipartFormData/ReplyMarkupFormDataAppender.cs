@@ -17,7 +17,7 @@ namespace Botty.Telegram.Converters.MultipartFormData
         {
             if (value is null) return;
 
-            formData.Add(new StringContent(TelegramBotClientJsonSerializer.Serialize(value), Encoding.UTF8), name);
+            formData.Add(new StringContent(TelegramBotClientJsonSerializer.Serialize(value, typeof(IReplyMarkup)), Encoding.UTF8), name);
         }
     }
 }

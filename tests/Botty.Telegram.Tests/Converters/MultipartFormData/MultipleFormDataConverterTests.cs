@@ -9,6 +9,7 @@ using Botty.Telegram.Abstractions.Enums;
 using Botty.Telegram.Abstractions.Types;
 using System;
 using System.IO;
+using Botty.Telegram.Serializers.Json;
 
 namespace Botty.Telegram.Tests.Converters.MultipartFormData
 {
@@ -228,12 +229,13 @@ namespace Botty.Telegram.Tests.Converters.MultipartFormData
 
             var inlineKeyboardMarkup = new InlineKeyboardMarkup(inlineKeyboard);
             var testObject = new TestClassWithReplyMarkup { ReplyMarkup = inlineKeyboardMarkup };
+            var expectedReplyMarkup = TelegramBotClientJsonSerializer.Serialize(inlineKeyboardMarkup, typeof(IReplyMarkup));
 
             // Act
             var formData = MultipartFormDataConverter.Convert(testObject);
 
             // Assert
-            await formData.Should().ContainAsync(nameof(TestClassWithReplyMarkup.ReplyMarkup).ToSnakeCase(), inlineKeyboardMarkup);
+            await formData.Should().ContainAsync(nameof(TestClassWithReplyMarkup.ReplyMarkup).ToSnakeCase(), expectedReplyMarkup);
         }
 
         [Fact]
@@ -281,12 +283,13 @@ namespace Botty.Telegram.Tests.Converters.MultipartFormData
             };
 
             var testObject = new TestClassWithReplyMarkup { ReplyMarkup = replyKeyboardMarkup };
+            var expectedReplyMarkup = TelegramBotClientJsonSerializer.Serialize(replyKeyboardMarkup, typeof(IReplyMarkup));
 
             // Act
             var formData = MultipartFormDataConverter.Convert(testObject);
 
             // Assert
-            await formData.Should().ContainAsync(nameof(TestClassWithReplyMarkup.ReplyMarkup).ToSnakeCase(), replyKeyboardMarkup);
+            await formData.Should().ContainAsync(nameof(TestClassWithReplyMarkup.ReplyMarkup).ToSnakeCase(), expectedReplyMarkup);
         }
 
         [Fact]
@@ -300,12 +303,13 @@ namespace Botty.Telegram.Tests.Converters.MultipartFormData
             };
 
             var testObject = new TestClassWithReplyMarkup { ReplyMarkup = forceReply };
+            var expectedReplyMarkup = TelegramBotClientJsonSerializer.Serialize(forceReply, typeof(IReplyMarkup));
 
             // Act
             var formData = MultipartFormDataConverter.Convert(testObject);
 
             // Assert
-            await formData.Should().ContainAsync(nameof(TestClassWithReplyMarkup.ReplyMarkup).ToSnakeCase(), forceReply);
+            await formData.Should().ContainAsync(nameof(TestClassWithReplyMarkup.ReplyMarkup).ToSnakeCase(), expectedReplyMarkup);
         }
 
         [Fact]
@@ -314,12 +318,13 @@ namespace Botty.Telegram.Tests.Converters.MultipartFormData
             // Arrange
             var replyKeyboardRemove = new ReplyKeyboardRemove { Selective = true };
             var testObject = new TestClassWithReplyMarkup { ReplyMarkup = replyKeyboardRemove };
+            var expectedReplyMarkup = TelegramBotClientJsonSerializer.Serialize(replyKeyboardRemove, typeof(IReplyMarkup));
 
             // Act
             var formData = MultipartFormDataConverter.Convert(testObject);
 
             // Assert
-            await formData.Should().ContainAsync(nameof(TestClassWithReplyMarkup.ReplyMarkup).ToSnakeCase(), replyKeyboardRemove);
+            await formData.Should().ContainAsync(nameof(TestClassWithReplyMarkup.ReplyMarkup).ToSnakeCase(), expectedReplyMarkup);
         }
 
         [Fact]

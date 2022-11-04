@@ -1,4 +1,5 @@
 ﻿using Botty.Telegram.Converters.Json;
+using System;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -38,6 +39,15 @@ namespace Botty.Telegram.Serializers.Json
         /// <param name="value">The value to convert</param>
         /// <returns>A JSON string representation of the value</returns>
         public static string Serialize<TValue>(TValue value) => JsonSerializer.Serialize(value, Options);
+
+        /// <summary>
+        /// Converts the value of a type specified by a generic type parameter into a JSON string
+        /// </summary>
+        /// <typeparam name="T">The type of the value to serialize</typeparam>
+        /// <param name="value">The value to convert</param>
+        /// <param name="inputType">The type of the value to conver</param>
+        /// <returns>A JSON string representation of the value</returns>
+        public static string Serialize<TValue>(TValue value, Type inputType) => JsonSerializer.Serialize(value, inputType, Options);
 
 #pragma warning disable CS8603 // Possible null reference return.
 
