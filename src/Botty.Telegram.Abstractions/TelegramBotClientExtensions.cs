@@ -298,5 +298,21 @@ namespace Botty.Telegram
             if (request is null) throw new ArgumentNullException(nameof(request));
             return telegramBotClient.SendMultipartFormDataAsync<Message>("sendPhoto", request, cancellationToken);
         }
+
+        /// <summary>
+        /// Sends video
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Sent video message</returns>
+        public static Task<Message> SendVideoAsync(
+            this ITelegramBotClient telegramBotClient,
+            SendVideoRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return telegramBotClient.SendMultipartFormDataAsync<Message>("sendVideo", request, cancellationToken);
+        }
     }
 }
