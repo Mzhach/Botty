@@ -236,6 +236,22 @@ namespace Botty.Telegram
         }
 
         /// <summary>
+        /// Sends animation
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Sent animation message</returns>
+        public static Task<Message> SendAnimationAsync(
+            this ITelegramBotClient telegramBotClient,
+            SendAnimationRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return telegramBotClient.SendMultipartFormDataAsync<Message>("sendAnimation", request, cancellationToken);
+        }
+
+        /// <summary>
         /// Sends audio
         /// </summary>
         /// <param name="telegramBotClient">Telegram Bot API client</param>

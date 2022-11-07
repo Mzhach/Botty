@@ -89,6 +89,11 @@ namespace Botty.Telegram.Abstractions.Types
         public MessageEntity[]? Entities { get; }
 
         /// <summary>
+        /// Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+        /// </summary>
+        public Animation? Animation { get; }
+
+        /// <summary>
         /// Optional. Message is an audio file, information about the file
         /// </summary>
         public Audio? Audio { get; }
@@ -132,6 +137,7 @@ namespace Botty.Telegram.Abstractions.Types
         /// <param name="viaBot">Via bot</param>
         /// <param name="editDate">Edit date</param>
         /// <param name="entities">Entities</param>
+        /// <param name="animation">Animation</param>
         /// <param name="audio">Audio</param>
         /// <param name="document">Document</param>
         /// <param name="photo">Photo sizes</param>
@@ -154,6 +160,7 @@ namespace Botty.Telegram.Abstractions.Types
             User? viaBot = default,
             DateTime? editDate = default,
             MessageEntity[]? entities = default,
+            Animation? animation = default,
             Audio? audio = default,
             Document? document = default,
             PhotoSize[]? photo = default,
@@ -176,6 +183,7 @@ namespace Botty.Telegram.Abstractions.Types
             ViaBot = viaBot;
             EditDate = editDate;
             Entities = entities;
+            Animation = animation;
             Audio = audio;
             Document = document;
             Photo = photo;
