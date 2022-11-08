@@ -300,6 +300,22 @@ namespace Botty.Telegram
         }
 
         /// <summary>
+        /// Sends sticker
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Sent sticker message</returns>
+        public static Task<Message> SendStickerAsync(
+            this ITelegramBotClient telegramBotClient,
+            SendStickerRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return telegramBotClient.SendMultipartFormDataAsync<Message>("sendSticker", request, cancellationToken);
+        }
+
+        /// <summary>
         /// Sends video
         /// </summary>
         /// <param name="telegramBotClient">Telegram Bot API client</param>

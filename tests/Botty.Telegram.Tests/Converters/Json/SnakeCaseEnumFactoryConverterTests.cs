@@ -72,7 +72,14 @@ namespace Botty.Telegram.Tests.Converters.Json
                 new object[] {typeof(ActionType), ActionType.ChooseSticker},
                 new object[] {typeof(ActionType), ActionType.FindLocation},
                 new object[] {typeof(ActionType), ActionType.RecordVideoNote},
-                new object[] {typeof(ActionType), ActionType.UploadVideoNote}
+                new object[] {typeof(ActionType), ActionType.UploadVideoNote},
+                new object[] {typeof(StickerType), StickerType.Regular},
+                new object[] {typeof(StickerType), StickerType.Mask},
+                new object[] {typeof(StickerType), StickerType.CustomEmoji},
+                new object[] {typeof(MaskPositionPoint), MaskPositionPoint.Forehead},
+                new object[] {typeof(MaskPositionPoint), MaskPositionPoint.Eyes},
+                new object[] {typeof(MaskPositionPoint), MaskPositionPoint.Mouth},
+                new object[] {typeof(MaskPositionPoint), MaskPositionPoint.Chin}
             };
 
         [Theory]

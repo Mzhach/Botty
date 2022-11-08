@@ -109,6 +109,11 @@ namespace Botty.Telegram.Abstractions.Types
         public PhotoSize[]? Photo { get; }
 
         /// <summary>
+        /// Optional. Message is a sticker, information about the sticker
+        /// </summary>
+        public Sticker? Sticker { get; }
+
+        /// <summary>
         /// Optional. Message is a video, information about the video
         /// </summary>
         public Video? Video { get; }
@@ -156,6 +161,7 @@ namespace Botty.Telegram.Abstractions.Types
         /// <param name="audio">Audio</param>
         /// <param name="document">Document</param>
         /// <param name="photo">Photo sizes</param>
+        /// <param name="sticker">Sticker</param>
         /// <param name="video">Video</param>
         /// <param name="videoNote">Video note</param>
         /// <param name="voice">Voice</param>
@@ -182,6 +188,7 @@ namespace Botty.Telegram.Abstractions.Types
             Audio? audio = default,
             Document? document = default,
             PhotoSize[]? photo = default,
+            Sticker? sticker = default,
             Video? video = default,
             VideoNote? videoNote = default,
             Voice? voice = default,
@@ -208,6 +215,7 @@ namespace Botty.Telegram.Abstractions.Types
             Audio = audio;
             Document = document;
             Photo = photo;
+            Sticker = sticker;
             Video = video;
             VideoNote = videoNote;
             Voice = voice;
