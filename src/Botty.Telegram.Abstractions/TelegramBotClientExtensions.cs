@@ -316,6 +316,22 @@ namespace Botty.Telegram
         }
 
         /// <summary>
+        /// Sends video note
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Sent video note message</returns>
+        public static Task<Message> SendVideoNoteAsync(
+            this ITelegramBotClient telegramBotClient,
+            SendVideoNoteRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return telegramBotClient.SendMultipartFormDataAsync<Message>("sendVideoNote", request, cancellationToken);
+        }
+
+        /// <summary>
         /// Sends voice
         /// </summary>
         /// <param name="telegramBotClient">Telegram Bot API client</param>
