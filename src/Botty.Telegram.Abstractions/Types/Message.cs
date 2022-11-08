@@ -114,6 +114,11 @@ namespace Botty.Telegram.Abstractions.Types
         public Video? Video { get; }
 
         /// <summary>
+        /// Optional. Message is a voice message, information about the file
+        /// </summary>
+        public Voice? Voice { get; }
+
+        /// <summary>
         /// Optional. Message is a dice with random value
         /// </summary>
         public Dice? Dice { get; }
@@ -147,6 +152,7 @@ namespace Botty.Telegram.Abstractions.Types
         /// <param name="document">Document</param>
         /// <param name="photo">Photo sizes</param>
         /// <param name="video">Video</param>
+        /// <param name="voice">Voice</param>
         /// <param name="dice">Dice</param>
         /// <param name="poll">Poll</param>
         public Message(
@@ -171,6 +177,7 @@ namespace Botty.Telegram.Abstractions.Types
             Document? document = default,
             PhotoSize[]? photo = default,
             Video? video = default,
+            Voice? voice = default,
             Dice? dice = default,
             Poll? poll = default)
         {
@@ -195,6 +202,7 @@ namespace Botty.Telegram.Abstractions.Types
             Document = document;
             Photo = photo;
             Video = video;
+            Voice = voice;
             Dice = dice;
             Poll = poll;
         }
