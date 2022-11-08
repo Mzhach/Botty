@@ -129,6 +129,16 @@ namespace Botty.Telegram.Abstractions.Types
         public Voice? Voice { get; }
 
         /// <summary>
+        /// Optional. Caption for the animation, audio, document, photo, video or voice
+        /// </summary>
+        public string? Caption { get; }
+
+        /// <summary>
+        /// Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
+        /// </summary>
+        public MessageEntity[]? CaptionEntities { get; }
+
+        /// <summary>
         /// Optional. Message is a dice with random value
         /// </summary>
         public Dice? Dice { get; }
@@ -165,6 +175,8 @@ namespace Botty.Telegram.Abstractions.Types
         /// <param name="video">Video</param>
         /// <param name="videoNote">Video note</param>
         /// <param name="voice">Voice</param>
+        /// <param name="caption">Caption</param>
+        /// <param name="captionEntities">Caption entities</param>
         /// <param name="dice">Dice</param>
         /// <param name="poll">Poll</param>
         public Message(
@@ -192,6 +204,8 @@ namespace Botty.Telegram.Abstractions.Types
             Video? video = default,
             VideoNote? videoNote = default,
             Voice? voice = default,
+            string? caption = default,
+            MessageEntity[]? captionEntities = default,
             Dice? dice = default,
             Poll? poll = default)
         {
@@ -219,6 +233,8 @@ namespace Botty.Telegram.Abstractions.Types
             Video = video;
             VideoNote = videoNote;
             Voice = voice;
+            Caption = caption;
+            CaptionEntities = captionEntities;
             Dice = dice;
             Poll = poll;
         }
