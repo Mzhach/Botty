@@ -362,5 +362,21 @@ namespace Botty.Telegram
             if (request is null) throw new ArgumentNullException(nameof(request));
             return telegramBotClient.SendMultipartFormDataAsync<Message>("sendVoice", request, cancellationToken);
         }
+
+        /// <summary>
+        /// Sends media group
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Sent messages</returns>
+        public static Task<Message[]> SendMediaGroupAsync(
+            this ITelegramBotClient telegramBotClient,
+            SendMediaGroupRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return telegramBotClient.SendMultipartFormDataAsync<Message[]>("sendMediaGroup", request, cancellationToken);
+        }
     }
 }

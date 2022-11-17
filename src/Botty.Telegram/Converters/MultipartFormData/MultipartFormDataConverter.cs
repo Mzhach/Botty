@@ -29,6 +29,7 @@ namespace Botty.Telegram.Converters.MultipartFormData
                 new StringFormDataAppender(),
                 new InputFileFormDataAppender(),
                 new ReplyMarkupFormDataAppender(),
+                new InputMediaFormDataAppender(),
                 new ClassFormDataAppender()
             };
         }
