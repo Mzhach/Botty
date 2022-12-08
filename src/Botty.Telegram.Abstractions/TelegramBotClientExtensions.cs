@@ -35,6 +35,17 @@ namespace Botty.Telegram
             => telegramBotClient.SendRequestAsync<bool>("logOut", cancellationToken);
 
         /// <summary>
+        /// Use this method to close the bot instance before moving it from one local server to another
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>True on success</returns>
+        public static Task<bool> CloseAsync(
+            this ITelegramBotClient telegramBotClient,
+            CancellationToken cancellationToken = default)
+            => telegramBotClient.SendRequestAsync<bool>("close", cancellationToken);
+
+        /// <summary>
         /// Receive incoming updates
         /// </summary>
         /// <param name="telegramBotClient">Telegram Bot API client</param>
