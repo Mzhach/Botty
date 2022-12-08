@@ -154,6 +154,16 @@ namespace Botty.Telegram.Abstractions.Types
         public Poll? Poll { get; }
 
         /// <summary>
+        /// Optional. Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
+        /// </summary>
+        public Venue? Venue { get; }
+
+        /// <summary>
+        /// Optional. Message is a shared location, information about the location
+        /// </summary>
+        public Location? Location { get; }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="messageId">Message identifier</param>
@@ -185,6 +195,8 @@ namespace Botty.Telegram.Abstractions.Types
         /// <param name="contact">Contact</param>
         /// <param name="dice">Dice</param>
         /// <param name="poll">Poll</param>
+        /// <param name="venue">Venue</param>
+        /// <param name="location">Location</param>
         public Message(
             long messageId,
             DateTime date,
@@ -214,7 +226,9 @@ namespace Botty.Telegram.Abstractions.Types
             MessageEntity[]? captionEntities = default,
             Contact? contact = default,
             Dice? dice = default,
-            Poll? poll = default)
+            Poll? poll = default,
+            Venue? venue = default,
+            Location? location = default)
         {
             MessageId = messageId;
             Date = date;
@@ -245,6 +259,8 @@ namespace Botty.Telegram.Abstractions.Types
             Contact = contact;
             Dice = dice;
             Poll = poll;
+            Venue = venue;
+            Location = location;
         }
     }
 }
