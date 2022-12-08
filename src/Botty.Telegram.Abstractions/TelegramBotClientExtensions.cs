@@ -432,5 +432,21 @@ namespace Botty.Telegram
             if (request is null) throw new ArgumentNullException(nameof(request));
             return telegramBotClient.SendRequestAsync<Message>("sendVenue", request, cancellationToken);
         }
+
+        /// <summary>
+        /// Sends location
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Sent location message</returns>
+        public static Task<Message> SendLocationAsync(
+            this ITelegramBotClient telegramBotClient,
+            SendLocationRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return telegramBotClient.SendRequestAsync<Message>("sendLocation", request, cancellationToken);
+        }
     }
 }
