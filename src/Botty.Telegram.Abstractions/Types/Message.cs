@@ -139,6 +139,11 @@ namespace Botty.Telegram.Abstractions.Types
         public MessageEntity[]? CaptionEntities { get; }
 
         /// <summary>
+        /// Optional. Message is a shared contact, information about the contact
+        /// </summary>
+        public Contact? Contact { get; }
+
+        /// <summary>
         /// Optional. Message is a dice with random value
         /// </summary>
         public Dice? Dice { get; }
@@ -177,6 +182,7 @@ namespace Botty.Telegram.Abstractions.Types
         /// <param name="voice">Voice</param>
         /// <param name="caption">Caption</param>
         /// <param name="captionEntities">Caption entities</param>
+        /// <param name="contact">Contact</param>
         /// <param name="dice">Dice</param>
         /// <param name="poll">Poll</param>
         public Message(
@@ -206,6 +212,7 @@ namespace Botty.Telegram.Abstractions.Types
             Voice? voice = default,
             string? caption = default,
             MessageEntity[]? captionEntities = default,
+            Contact? contact = default,
             Dice? dice = default,
             Poll? poll = default)
         {
@@ -235,6 +242,7 @@ namespace Botty.Telegram.Abstractions.Types
             Voice = voice;
             Caption = caption;
             CaptionEntities = captionEntities;
+            Contact = contact;
             Dice = dice;
             Poll = poll;
         }
