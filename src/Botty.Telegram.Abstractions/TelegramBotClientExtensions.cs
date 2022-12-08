@@ -24,6 +24,17 @@ namespace Botty.Telegram
             => telegramBotClient.SendRequestAsync<User>("getMe", cancellationToken);
 
         /// <summary>
+        /// Use this method to log out from the cloud Bot API server before launching the bot locally
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>True on success</returns>
+        public static Task<bool> LogOutAsync(
+            this ITelegramBotClient telegramBotClient,
+            CancellationToken cancellationToken = default)
+            => telegramBotClient.SendRequestAsync<bool>("logOut", cancellationToken);
+
+        /// <summary>
         /// Receive incoming updates
         /// </summary>
         /// <param name="telegramBotClient">Telegram Bot API client</param>
