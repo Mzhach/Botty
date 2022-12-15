@@ -464,5 +464,21 @@ namespace Botty.Telegram
             if (request is null) throw new ArgumentNullException(nameof(request));
             return telegramBotClient.SendRequestAsync<Message>("editMessageLiveLocation", request, cancellationToken);
         }
+
+        /// <summary>
+        /// Stops live location
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Edited live location message</returns>
+        public static Task<Message> StopMessageLiveLocationAsync(
+            this ITelegramBotClient telegramBotClient,
+            StopMessageLiveLocationRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return telegramBotClient.SendRequestAsync<Message>("stopMessageLiveLocation", request, cancellationToken);
+        }
     }
 }
