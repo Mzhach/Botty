@@ -2,6 +2,7 @@
 using Botty.Telegram.Abstractions.Requests;
 using Botty.Telegram.Abstractions.Types;
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -511,6 +512,22 @@ namespace Botty.Telegram
         {
             if (request is null) throw new ArgumentNullException(nameof(request));
             return telegramBotClient.SendMultipartFormDataAsync<Message>("editMessageMedia", request, cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets information about file
+        /// </summary>
+        /// <param name="telegramBotClient">Telegram Bot API client</param>
+        /// <param name="request">Request</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>File</returns>
+        public static Task<Abstractions.Types.File> GetFileAsync(
+            this ITelegramBotClient telegramBotClient,
+            GetFileRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            if (request is null) throw new ArgumentNullException(nameof(request));
+            return telegramBotClient.SendRequestAsync<Abstractions.Types.File>("getFile", request, cancellationToken);
         }
     }
 }

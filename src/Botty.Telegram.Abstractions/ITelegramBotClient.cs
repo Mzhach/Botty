@@ -1,5 +1,6 @@
 ﻿using Botty.Telegram.Abstractions.Requests;
 using Botty.Telegram.Abstractions.Types;
+using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,5 +40,13 @@ namespace Botty.Telegram.Abstractions
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Telegram API request response</returns>
         Task<TResponse> SendMultipartFormDataAsync<TResponse>(string method, object content, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Downloads file from Telegram Bot API
+        /// </summary>
+        /// <param name="filePath">File path</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Stream</returns>
+        Task<Stream> DownloadFileAsync(string filePath, CancellationToken cancellationToken);
     }
 }
